@@ -1,0 +1,109 @@
+﻿@page "/"
+<h3>Devices</h3>
+
+@if (devices == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @*<ul>
+        @foreach (var device in devices)
+        {
+            <li>
+                <p>@device.deviceId</p>
+                <p>@device.connectionState</p>
+                <p>@device.status</p>
+            </li>
+        }
+    </ul>*@
+
+    @foreach (var device in devices)
+    {
+
+        <div class="card mb-3">
+            <div class="card-header d-flex @BgColour(device)">
+                @device.deviceId
+            </div>
+            <div class="card-body d-flex">
+                <div class="col">
+                    <div class="font-weight-bold">Machine Id</div>
+                    <div>@device.deviceId</div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="font-weight-bold">Status: </div>
+                        <div>@device.connectionState</div>
+                    </div>
+                    <div class="row">
+                        <div class="font-weight-bold">Data: </div>
+                        <div>@device.data.</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <button @onclick="@(e => ConClick(e, device))">@ButtonText(device)</button>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+@*@code {
+    private DeviceTwinModel[] devices;
+
+    protected override async Task OnInitializedAsync()
+    {
+        devices = await Http.GetFromJsonAsync<DeviceTwinModel[]>("https://net21upg3-funcapp.azurewebsites.net/api/GetDevicesInformation?");
+    }
+}*@
+
+@code {
+    private DeviceTwinModel[] devices;
+
+    protected override async Task OnInitializedAsync()
+    {
+        devices = await Http.GetFromJsonAsync<DeviceTwinModel[]>("https://net21upg3-funcapp.azurewebsites.net/api/GetDevicesInformation?");
+    }
+
+    public class Machine
+    {
+        public Guid id { get; set; }
+        public string description { get; set; }
+        public bool connected { get; set; }
+        public string[] data { get; set; }
+    }
+
+    private string BgColour(DeviceTwinModel device)
+    {
+        if (device.connectionState == "Connected")
+            return "bg-success";
+        else
+            return "bg-danger";
+    }
+
+
+    private string ButtonText(DeviceTwinModel device)
+    {
+        if (device.connectionState == "Connected")
+            return "Stop";
+        else
+            return "Start";
+
+    }
+
+    private string CheckConnection(bool db)
+    {
+        if (db == true)
+            return "online";
+        else
+            return "offline";
+    }
+
+    private void ConClick(MouseEventArgs e, DeviceTwinModel device)
+    {
+
+        //device.connected = !machine.connected;
+    }
+
+}

@@ -1,0 +1,32 @@
+﻿[
+  {
+    "id": "4331228f-5e3a-49c4-aeb8-79c810d364c8",
+    "description": "Oven",
+    "connected": true,
+    "data": ["ok", "overheated", "overheated"]
+  },
+  {
+    "id": "52812071-2d09-47a8-8da1-e5256ef1febb",
+    "description": "Submarine",
+    "connected": true,
+    "data": [ "gone fishing", "cold", "freezing" ]
+  },
+  {
+    "id": "a0752e7c-f35e-4727-943f-8db055f81d84",
+    "description": "Lift",
+    "connected": false,
+    "data": [ "ok", "overloaded", "overloaded" ]
+  },
+  {
+    "id": "ce940495-0ba2-41d1-9a17-7edac06867cc",
+    "description": "Printer",
+    "connected": true,
+    "data": [ "super", "super", "out of paper" ]
+  },
+  {
+    "id": "2cadca1b-393e-4ee5-ab90-43e0f9f442bf",
+    "description": "Radiator",
+    "connected": true,
+    "data": [ "ok", "overheated", "ok" ]
+  }
+]

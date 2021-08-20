@@ -1,0 +1,30 @@
+﻿@*@page "/devices"
+<h3>Devices</h3>
+
+@if (devices == null)
+{
+    <p><em>Loading...</em></p>
+}
+            else
+            {
+<ul>
+    @foreach (var device in devices)
+    {
+    <li>
+        <p>@device.deviceId</p>
+        <p>@device.connectionState</p>
+        <p>@device.status</p>
+    </li>
+    }
+    </ul>
+            }
+
+
+@code {
+    private DeviceTwinModel[] devices;
+
+    protected override async Task OnInitializedAsync()
+    {
+        devices = await Http.GetFromJsonAsync<DeviceTwinModel[]>("https://net21upg3-funcapp.azurewebsites.net/api/GetDevicesInformation?");
+    }
+}*@
