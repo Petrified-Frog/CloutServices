@@ -19,13 +19,13 @@ namespace AzureFunctions
     {
         [FunctionName("GetItem")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "devices/{deviceId}")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "devices/{id}")] HttpRequest req,
             [CosmosDB(
             databaseName: "IoT", 
             collectionName: "Data", 
             CreateIfNotExists = true, 
             ConnectionStringSetting = "CosmosDB",
-            SqlQuery = "select top 1 * from c where c.DeviceId = {deviceId} order by c._ts desc"
+            SqlQuery = "select top 1 * from c where c.DeviceId = {id} order by c._ts desc"
             )] IEnumerable<IotDevice> devices,
             ILogger log)
         {
