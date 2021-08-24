@@ -13,7 +13,7 @@ namespace LiftSimulator
         
         static async Task Main(string[] args)
         {
-            Guid deviceId = Guid.NewGuid();
+            //Guid deviceId = Guid.Parse("95c5a3c1-d838-4e14-b8da-866db4405730");
             int lifting = 0;
             string status = "Ok";
             var rand = new Random();
@@ -30,9 +30,10 @@ namespace LiftSimulator
                 else
                     lifting = 0;
 
-                var data = JsonConvert.SerializeObject(new {id = deviceId, lifting = lifting, status = status });
+                var data = JsonConvert.SerializeObject(new {lifting = lifting, status = status });
                 Console.Write("Message sent: " + data + "\n");
                 var message = new Message(Encoding.UTF8.GetBytes(data));
+                message.Properties["DeviceGuid"] = "95c5a3c1-d838-4e14-b8da-866db4405730";
                 await deviceClient.SendEventAsync(message);
 
                 await Task.Delay(10 * 1000);

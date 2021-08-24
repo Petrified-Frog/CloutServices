@@ -27,21 +27,22 @@ else
             </div>
             <div class="card-body d-flex">
                 <div class="col">
-                    <div class="font-weight-bold">Machine Id</div>
-                    <div>@device.deviceId</div>
+                    <div class="font-weight-bold">Device Id</div>
+                    <div>@device.id</div>
                 </div>
                 <div class="col">
                     <div class="row">
                         <div class="font-weight-bold">Status: </div>
-                        <div>@device.connectionState</div>
+                        <div>@*device.connectionState*@</div>
                     </div>
                     <div class="row">
                         <div class="font-weight-bold">Data: </div>
-                        <div>@device.data.</div>
+                        <div>@device.data</div>
                     </div>
                 </div>
                 <div class="col">
-                    <button @onclick="@(e => ConClick(e, device))">@ButtonText(device)</button>
+                    @*<button @onclick="@(e => ConClick(e, device))">@ButtonText(device)</button>*@
+                    <button>Start</button>
                 </div>
             </div>
         </div>
@@ -59,11 +60,19 @@ else
 }*@
 
 @code {
-    private DeviceTwinModel[] devices;
+    private dynamic[] devices;
 
     protected override async Task OnInitializedAsync()
     {
-        devices = await Http.GetFromJsonAsync<DeviceTwinModel[]>("https://net21upg3-funcapp.azurewebsites.net/api/GetDevicesInformation?");
+        //devices = await Http.GetFromJsonAsync<DeviceTwinModel[]>("https://net21upg3-funcapp.azurewebsites.net/api/GetDevicesInformation?");
+        devices = await Http.GetFromJsonAsync<DeviceModel[]>("https://net21upg3-funcapp.azurewebsites.net/api/GetItems?code=QRwDjHr6SMzuAXHYqML1QwQZ6Q9f90DyJe74TogwnxrV09eWWvSaXQ==");
+
+
+        foreach(var device in devices)
+        {
+            var d = device;
+
+        }
     }
 
     public class Machine
@@ -74,33 +83,33 @@ else
         public string[] data { get; set; }
     }
 
-    private string BgColour(DeviceTwinModel device)
+    private string BgColour(DeviceModel device)
     {
-        if (device.connectionState == "Connected")
-            return "bg-success";
-        else
-            return "bg-danger";
+        //if (device.connectionState == "Connected")
+        //    return "bg-success";
+        //else
+        return "bg-danger";
     }
 
 
-    private string ButtonText(DeviceTwinModel device)
+    private string ButtonText(DeviceModel device)
     {
-        if (device.connectionState == "Connected")
-            return "Stop";
-        else
-            return "Start";
+        //if (device.connectionState == "Connected")
+        //    return "Stop";
+        //else
+        return "Start";
 
     }
 
     private string CheckConnection(bool db)
     {
-        if (db == true)
-            return "online";
-        else
-            return "offline";
+        //if (db == true)
+        //    return "online";
+        //else
+        return "offline";
     }
 
-    private void ConClick(MouseEventArgs e, DeviceTwinModel device)
+    private void ConClick(MouseEventArgs e, DeviceModel device)
     {
 
         //device.connected = !machine.connected;
