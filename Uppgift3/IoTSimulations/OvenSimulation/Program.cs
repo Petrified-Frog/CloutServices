@@ -4,7 +4,6 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace OvenSimulation
 {
     class Program
@@ -29,9 +28,8 @@ namespace OvenSimulation
                     status = "Ok";
 
                 var data = JsonConvert.SerializeObject(new {temperature = temp, status = status });
-                var message = new Message(Encoding.UTF8.GetBytes(data));
-                message.Properties["deviceType"] = "function app";
-                message.Properties["DeviceGuid"] = "ae1cf220-92ba-4d31-957e-dd5ef2ba9617";
+                var message = new Message(Encoding.UTF8.GetBytes(data));                
+                message.Properties["devicename"] = "ae1cf220-92ba-4d31-957e-dd5ef2ba9617";
                 await deviceClient.SendEventAsync(message);
                 Console.Write("Message sent: " + data+"\n");
 

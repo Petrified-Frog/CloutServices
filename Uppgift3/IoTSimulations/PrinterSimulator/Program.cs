@@ -27,7 +27,7 @@ namespace PrinterSimulator
                 var data = JsonConvert.SerializeObject(new {status = status });
                 Console.Write("Message sent: " + data + "\n");
                 var message = new Message(Encoding.UTF8.GetBytes(data));
-                message.Properties["DeviceGuid"] = "6502c8ed-bd22-45ca-b3cc-37d5e64cf574";
+                message.Properties["devicename"] = "6502c8ed-bd22-45ca-b3cc-37d5e64cf574";
                 await deviceClient.SendEventAsync(message);
 
                 await Task.Delay(10 * 1000);

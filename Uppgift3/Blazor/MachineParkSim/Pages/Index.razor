@@ -22,26 +22,26 @@ else
     {
 
         <div class="card mb-3">
-            <div class="card-header d-flex @BgColour(device)">
-                @device.deviceId
+            <div class="card-header d-flex @*@BgColour(device)*@">
+                @device.DeviceId
             </div>
             <div class="card-body d-flex">
                 <div class="col">
                     <div class="font-weight-bold">Device Id</div>
-                    <div>@device.id</div>
+                    <div>@device.DeviceName</div>
                 </div>
                 <div class="col">
                     <div class="row">
                         <div class="font-weight-bold">Status: </div>
-                        <div>@*device.connectionState*@</div>
+                        <div>@device.ConnectionState</div>
                     </div>
                     <div class="row">
                         <div class="font-weight-bold">Data: </div>
-                        <div>@device.data</div>
+                        <div>@device.JsonData</div>
                     </div>
                 </div>
                 <div class="col">
-                    @*<button @onclick="@(e => ConClick(e, device))">@ButtonText(device)</button>*@
+                    <button @onclick="@(e => ConClick(e, device))">@ButtonText(device)</button>
                     <button>Start</button>
                 </div>
             </div>
@@ -64,15 +64,11 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        //devices = await Http.GetFromJsonAsync<DeviceTwinModel[]>("https://net21upg3-funcapp.azurewebsites.net/api/GetDevicesInformation?");
-        devices = await Http.GetFromJsonAsync<DeviceModel[]>("https://net21upg3-funcapp.azurewebsites.net/api/GetItems?code=QRwDjHr6SMzuAXHYqML1QwQZ6Q9f90DyJe74TogwnxrV09eWWvSaXQ==");
+        devices = await Http.GetFromJsonAsync<IotDeviceModel[]>("https://net21upg3-funcapp.azurewebsites.net/api/GetTwinDevices?");
+        //devices = await Http.GetFromJsonAsync<DeviceModel[]>("https://net21upg3-funcapp.azurewebsites.net/api/GetItems?code=QRwDjHr6SMzuAXHYqML1QwQZ6Q9f90DyJe74TogwnxrV09eWWvSaXQ==");
 
 
-        foreach(var device in devices)
-        {
-            var d = device;
-
-        }
+   
     }
 
     public class Machine
@@ -83,7 +79,7 @@ else
         public string[] data { get; set; }
     }
 
-    private string BgColour(DeviceModel device)
+    private string BgColour(IotDeviceModel device)
     {
         //if (device.connectionState == "Connected")
         //    return "bg-success";
@@ -92,7 +88,7 @@ else
     }
 
 
-    private string ButtonText(DeviceModel device)
+    private string ButtonText(IotDeviceModel device)
     {
         //if (device.connectionState == "Connected")
         //    return "Stop";
@@ -109,7 +105,7 @@ else
         return "offline";
     }
 
-    private void ConClick(MouseEventArgs e, DeviceModel device)
+    private void ConClick(MouseEventArgs e, IotDeviceModel device)
     {
 
         //device.connected = !machine.connected;

@@ -7,6 +7,7 @@ using System.Text;
 using System.Net.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Azure.Management.EventHub.Models;
+using AzureFunctions.Models;
 
 namespace AzureFunctions
 {
@@ -19,15 +20,23 @@ namespace AzureFunctions
             [CosmosDB(databaseName: "IoT", collectionName: "Data", CreateIfNotExists = true, ConnectionStringSetting = "CosmosDB")] out dynamic cosmos,
             ILogger log)
         {
-            var data = new
-            {
-                data = Encoding.UTF8.GetString(message.Body.Array),
-                deviceId = message.SystemProperties["iothub-connection-device-id"]
-            };
+            //var data = new
+            //{
+            //    data = Encoding.UTF8.GetString(message.Body.Array),
+            //    deviceId = message.SystemProperties["iothub-connection-device-id"]
+            //};
 
             try
             {
-                cosmos = data;
+                //cosmos = data;
+
+                cosmos = new IotDevice
+                {
+                    DeviceId = message.SystemProperties["iothub-connection-device-id"].ToString(),
+                    DeviceName = message.Properties["devicename"].ToString(),
+                    JsonData = Encoding.UTF8.GetString(message.Body.Array),
+
+                };
             }
             catch
             {

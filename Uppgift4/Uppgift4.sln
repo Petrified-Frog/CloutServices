@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineParkSim", "MachineParkSim.csproj", "{A1901135-B30A-49FF-97D7-6E072B78122B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Uppgift4", "Uppgift4.csproj", "{2178226A-342A-4CA9-8E67-79D67958B89D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A1901135-B30A-49FF-97D7-6E072B78122B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1901135-B30A-49FF-97D7-6E072B78122B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A1901135-B30A-49FF-97D7-6E072B78122B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A1901135-B30A-49FF-97D7-6E072B78122B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2178226A-342A-4CA9-8E67-79D67958B89D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2178226A-342A-4CA9-8E67-79D67958B89D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2178226A-342A-4CA9-8E67-79D67958B89D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2178226A-342A-4CA9-8E67-79D67958B89D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B121AABD-D3C4-4DCE-9BCE-9CFDF30C8835}
+		SolutionGuid = {F9BF6FF6-4FA7-4AC4-B3C3-11879AEC53F7}
 	EndGlobalSection
 EndGlobal

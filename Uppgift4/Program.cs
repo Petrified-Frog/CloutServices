@@ -1,14 +1,14 @@
+using System;
+using System.Net.Http;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Text;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MachineParkSim
+namespace Uppgift4
 {
     public class Program
     {
@@ -24,8 +24,8 @@ namespace MachineParkSim
                 builder.Configuration.Bind("AzureAdB2C", options.ProviderOptions.Authentication);
                 options.ProviderOptions.DefaultAccessTokenScopes.Add("openid");
                 options.ProviderOptions.DefaultAccessTokenScopes.Add("offline_access");
+                //options.ProviderOptions.LoginMode = "redirect";
             });
-
 
             await builder.Build().RunAsync();
         }
