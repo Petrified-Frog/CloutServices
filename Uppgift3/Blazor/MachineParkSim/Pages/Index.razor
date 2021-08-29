@@ -1,90 +1,77 @@
 ﻿@page "/"
 <h3>Devices</h3>
 
-@if (devices == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    @*<ul>
-        @foreach (var device in devices)
+<AuthorizeView>
+    <Authorized>
+        @if (devices == null)
         {
-            <li>
-                <p>@device.deviceId</p>
-                <p>@device.connectionState</p>
-                <p>@device.status</p>
-            </li>
+            <p><em>Loading...</em></p>
         }
-    </ul>*@
+        else
+        {
+            @foreach (var device in devices)
+            {
 
-    @foreach (var device in devices)
-    {
-
-        <div class="card mb-3">
-            <div class="card-header d-flex @*@BgColour(device)*@">
-                @device.DeviceId
-            </div>
-            <div class="card-body d-flex">
-                <div class="col">
-                    <div class="font-weight-bold">Device Id</div>
-                    <div>@device.DeviceName</div>
-                </div>
-                <div class="col">
-                    <div class="row">
-                        <div class="font-weight-bold">Status: </div>
-                        <div>@device.ConnectionState</div>
+                <div class="card mb-3">
+                    <div class="card-header d-flex @BgColour(device)">
+                        @device.DeviceId
                     </div>
-                    <div class="row">
-                        <div class="font-weight-bold">Data: </div>
-                        <div>@device.JsonData</div>
+                    <div class="card-body d-flex">
+                        <div class="col">
+                            <div class="font-weight-bold">Device Id</div>
+                            <div>@device.DeviceName</div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="font-weight-bold">Status: </div>
+                                <div>@device.ConnectionState</div>
+                            </div>
+                            <div class="row">
+                                <div class="font-weight-bold">Data: </div>
+                                <div>@device.JsonData</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <button @onclick="@(e => ConClick(e, device))">@ButtonText(device)</button>
+                            <button>Start</button>
+                        </div>
                     </div>
                 </div>
-                <div class="col">
-                    <button @onclick="@(e => ConClick(e, device))">@ButtonText(device)</button>
-                    <button>Start</button>
-                </div>
-            </div>
-        </div>
-    }
-}
+            }
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You have to log in to see anything important.</p>
+        <a href="authentication/login">Log in</a>
+    </NotAuthorized>
+</AuthorizeView>
 
+@code {   
 
-@*@code {
-    private DeviceTwinModel[] devices;
+    public IotDeviceModel[] devices;
 
-    protected override async Task OnInitializedAsync()
-    {
-        devices = await Http.GetFromJsonAsync<DeviceTwinModel[]>("https://net21upg3-funcapp.azurewebsites.net/api/GetDevicesInformation?");
-    }
-}*@
-
-@code {
-    private dynamic[] devices;
-
-    protected override async Task OnInitializedAsync()
+    protected async Task GetDevicesAsync()
     {
         devices = await Http.GetFromJsonAsync<IotDeviceModel[]>("https://net21upg3-funcapp.azurewebsites.net/api/GetTwinDevices?");
-        //devices = await Http.GetFromJsonAsync<DeviceModel[]>("https://net21upg3-funcapp.azurewebsites.net/api/GetItems?code=QRwDjHr6SMzuAXHYqML1QwQZ6Q9f90DyJe74TogwnxrV09eWWvSaXQ==");
-
-
-   
     }
 
-    public class Machine
+    protected override void OnInitialized()
     {
-        public Guid id { get; set; }
-        public string description { get; set; }
-        public bool connected { get; set; }
-        public string[] data { get; set; }
+        var timer = new Timer(new TimerCallback(_ => InvokeAsync(() => StateHasChanged())), null, 1000, 1000);
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await GetDevicesAsync();
+    }
+
+    
     private string BgColour(IotDeviceModel device)
     {
-        //if (device.connectionState == "Connected")
-        //    return "bg-success";
-        //else
-        return "bg-danger";
+        if (device.ConnectionState == "Online")
+            return "bg-success";
+        else
+            return "bg-danger";
     }
 
 
