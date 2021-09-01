@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1.csproj", "{938C5AB0-3B95-4F6A-8364-FA5DFD49042F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherIot", "WeatherIot.csproj", "{63032A90-F818-41D7-A530-54FAFDA96658}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{938C5AB0-3B95-4F6A-8364-FA5DFD49042F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{938C5AB0-3B95-4F6A-8364-FA5DFD49042F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{938C5AB0-3B95-4F6A-8364-FA5DFD49042F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{938C5AB0-3B95-4F6A-8364-FA5DFD49042F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63032A90-F818-41D7-A530-54FAFDA96658}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63032A90-F818-41D7-A530-54FAFDA96658}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63032A90-F818-41D7-A530-54FAFDA96658}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63032A90-F818-41D7-A530-54FAFDA96658}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {111B6B97-6859-4984-B9E1-C853679E50DC}
+		SolutionGuid = {F8876552-B343-44CB-968E-3E853EF35626}
 	EndGlobalSection
 EndGlobal
