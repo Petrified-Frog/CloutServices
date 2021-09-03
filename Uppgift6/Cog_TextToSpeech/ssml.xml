@@ -1,0 +1,11 @@
+﻿<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+    <voice name="en-US-AriaNeural">
+        <mstts:express-as style="empathetic">
+          The Wheel of Time turns, and Ages come and pass, leaving memories that become legend. 
+        </mstts:express-as>
+      <mstts:express-as style="cheerful">
+            Legend fades to myth, and even myth is long forgotten when the Age that gave it birth comes again.
+      </mstts:express-as>
+    </voice>
+</speak>

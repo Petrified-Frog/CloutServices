@@ -13,7 +13,7 @@
                 {
 
                     <div class="card mb-3">
-                        <div class="card-header d-flex @BgColour(device)">
+                        <div class="card-header font-weight-bold d-flex @BgColour(device)">
                             @device.DeviceId
                         </div>
                         <div class="card-body d-flex">
@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <button @onclick="@(e => ConClick(e, device))">@ButtonText(device)</button>
+                                <button @onclick="@(e => ToggleSendStateAsync(e, device))">@ButtonText(device)</button>
                             </div>
                         </div>
                     </div>
@@ -76,24 +76,16 @@
 
         private string ButtonText(IotDeviceModel device)
         {
-            //if (device.connectionState == "Connected")
-            //    return "Stop";
-            //else
-            return "Start";
+            if (device.ConnectionState == "Online")
+                return "Stop";
+            else
+                return "Start";
 
         }
 
-        private string CheckConnection(bool db)
+        private void ToggleSendStateAsync(MouseEventArgs e, IotDeviceModel device)
         {
-            //if (db == true)
-            //    return "online";
-            //else
-            return "offline";
-        }
-
-        private void ConClick(MouseEventArgs e, IotDeviceModel device)
-        {
-
+            var response = Http.PostAsJsonAsync("", new {deviceId = device.DeviceId, methodName = "stop"});
             //device.connected = !machine.connected;
         }
 
