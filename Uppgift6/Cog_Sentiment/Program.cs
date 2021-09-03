@@ -8,7 +8,7 @@ namespace Cog_Sentiment
 {
     class Program
     {
-        private static readonly AzureKeyCredential credentials = new AzureKeyCredential("97c2f5fd1b8447a2935063033cb2f3ee");
+        private static readonly AzureKeyCredential credentials = new AzureKeyCredential("");
         private static readonly Uri endpoint = new Uri("https://net21textanalytics.cognitiveservices.azure.com/");
         static void Main(string[] args)
         {

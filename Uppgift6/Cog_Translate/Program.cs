@@ -6,7 +6,7 @@ using Newtonsoft.Json; // Install Newtonsoft.Json with NuGet
 
 class Program
 {
-    private static readonly string subscriptionKey = "db406f76366647428aec08fb15660f6f";
+    private static readonly string subscriptionKey = "";
     private static readonly string endpoint = "https://api.cognitive.microsofttranslator.com/";
 
     // Add your location, also known as region. The default is global.

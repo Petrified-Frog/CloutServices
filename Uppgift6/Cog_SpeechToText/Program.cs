@@ -8,7 +8,7 @@ class Program
 {
     async static Task Main(string[] args)
     {
-        var speechConfig = SpeechConfig.FromSubscription("bec4a3cbdee24d01bb640c6491f15fec", "westeurope");
+        var speechConfig = SpeechConfig.FromSubscription("", "westeurope");
         await ContiuousFromFile(speechConfig);
     }
 

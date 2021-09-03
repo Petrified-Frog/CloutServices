@@ -14,7 +14,7 @@ namespace Cog_ImageAnalysis
     class Program
     {
         // Add your Computer Vision subscription key and endpoint
-        static string subscriptionKey = "c85600f118fe45289dd5015907817e31";
+        static string subscriptionKey = "";
         static string endpoint = "https://net21-vision.cognitiveservices.azure.com/";
 
         

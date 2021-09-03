@@ -17,7 +17,7 @@ namespace Cog_TextToSpeech
 
         public static async Task SynthesizeAudioAsync()
         {
-            var config = SpeechConfig.FromSubscription("bec4a3cbdee24d01bb640c6491f15fec", "westeurope");
+            var config = SpeechConfig.FromSubscription("", "westeurope");
             config.SpeechSynthesisVoiceName = "en-US-GuyNeural";
             //config.SetSpeechSynthesisOutputFormat(SpeechSynthesisOutputFormat.Riff24Khz16BitMonoPcm);
 
