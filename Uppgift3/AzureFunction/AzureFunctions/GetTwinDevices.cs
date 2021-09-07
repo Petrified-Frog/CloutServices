@@ -41,9 +41,9 @@ namespace AzureFunctions
                     ConnectionState = (twin.ConnectionState.ToString() == "Connected") ? "Online" : "Offline",
                     Status = twin.Status.ToString(),
                     JsonData = data.JsonData,
-                    JsonDataLastUpdated = data.JsonDataLastUpdated
-
-                }) ;
+                    JsonDataLastUpdated = data.JsonDataLastUpdated,
+                    Sending = twin.Properties.Reported["sending"]
+                });
             }
 
             return new OkObjectResult(devices);

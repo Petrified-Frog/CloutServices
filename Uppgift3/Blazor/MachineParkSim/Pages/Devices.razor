@@ -25,6 +25,8 @@
                                 <div class="row">
                                     <div class="font-weight-bold">Status: </div>
                                     <div>@device.ConnectionState</div>
+                                    <div class="font-weight-bold">Sending: </div>
+                                    <div>@device.Sending</div>
                                 </div>
                                 <div class="row">
                                     <div class="font-weight-bold">Data: </div>
@@ -76,17 +78,27 @@
 
         private string ButtonText(IotDeviceModel device)
         {
-            if (device.ConnectionState == "Online")
+            if (device.Sending)
                 return "Stop";
             else
                 return "Start";
 
         }
 
-        private void ToggleSendStateAsync(MouseEventArgs e, IotDeviceModel device)
+        private async Task ToggleSendStateAsync(MouseEventArgs e, IotDeviceModel device)
         {
-            var response = Http.PostAsJsonAsync("", new {deviceId = device.DeviceId, methodName = "stop"});
-            //device.connected = !machine.connected;
+            var bodyRequest = new DirectMethodRequestModel{ DeviceId = device.DeviceId, MethodName = "start"};
+
+            if (device.Sending)
+                bodyRequest.MethodName = "stop";
+            else
+                bodyRequest.MethodName = "start";
+            Console.WriteLine("Posting: "+bodyRequest.MethodName);
+
+            var response = await Http.PostAsJsonAsync("https://net21upg3-funcapp.azurewebsites.net/api/directmethod?", bodyRequest);
+
+            //var response = await Http.PostAsJsonAsync("https://net21upg3-funcapp.azurewebsites.net/api/directmethod?", new {deviceId = device.DeviceId, methodName = "stop"});
+
         }
 
     }

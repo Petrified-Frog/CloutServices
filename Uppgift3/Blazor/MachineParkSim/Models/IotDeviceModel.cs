@@ -13,6 +13,6 @@ namespace MachineParkSim.Models
         public string Status { get; set; } = "Disabled";
         public string JsonData { get; set; } = "No data present";
         public DateTime JsonDataLastUpdated { get; set; } = DateTime.Now;
-        //public bool AllowSending { get; set; } = false;
+        public bool Sending { get; set; } = false;
     }
 }

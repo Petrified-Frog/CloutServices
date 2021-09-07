@@ -1,4 +1,5 @@
 ﻿using Microsoft.Azure.Devices.Client;
+using Microsoft.Azure.Devices.Shared;
 using Newtonsoft.Json;
 using System;
 using System.Text;
@@ -15,6 +16,8 @@ namespace LiftSimulator
         {
             await deviceClient.SetMethodHandlerAsync("start", Start, null);
             await deviceClient.SetMethodHandlerAsync("stop", Stop, null);
+
+            await UpdateReportedSendingAsync();
 
             int lifting = 0;
             string status = "Ok";
@@ -47,15 +50,29 @@ namespace LiftSimulator
                 }
             }
         }
-        private static Task<MethodResponse> Start(MethodRequest methodRequest, Object userContext)
+        //Adds/Updates a properties variable in device twin
+        private static async Task UpdateReportedSendingAsync()
+        {
+            var twin = await deviceClient.GetTwinAsync();
+            string patch = JsonConvert.SerializeObject(new { sending }); //sending is short for sending = sending
+            await deviceClient.UpdateReportedPropertiesAsync(JsonConvert.DeserializeObject<TwinCollection>(patch));
+        }
+
+        //Called via direct method azurefunction from webpage
+        private static async Task<MethodResponse> Start(MethodRequest methodRequest, Object userContext)
         {
             sending = true;
-            return Task.FromResult(new MethodResponse(new byte[0], 200));
+            Console.Write("Messages started\n");
+            await UpdateReportedSendingAsync();
+            return new MethodResponse(new byte[0], 200);
         }
-        private static Task<MethodResponse> Stop(MethodRequest methodRequest, Object userContext)
+        //Called via direct method azurefunction from webpage
+        private static async Task<MethodResponse> Stop(MethodRequest methodRequest, Object userContext)
         {
             sending = false;
-            return Task.FromResult(new MethodResponse(new byte[0], 200));
+            Console.Write("Messages stopped\n");
+            await UpdateReportedSendingAsync();
+            return new MethodResponse(new byte[0], 200);
         }
     }
 }

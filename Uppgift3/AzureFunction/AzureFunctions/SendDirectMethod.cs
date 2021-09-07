@@ -11,9 +11,7 @@ using Microsoft.Azure.Devices;
 using AzureFunctions.Models;
 
 namespace AzureFunctions
-{
-    
-
+{ 
     public static class SendDirectMethod
     {
         private static readonly ServiceClient serviceClient = ServiceClient.CreateFromConnectionString(Environment.GetEnvironmentVariable("IoTHubConnection"));
