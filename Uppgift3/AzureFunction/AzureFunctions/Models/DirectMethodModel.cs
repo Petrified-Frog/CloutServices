@@ -8,7 +8,7 @@ namespace AzureFunctions.Models
     {
         public string DeviceId { get; set; }
         public string MethodName { get; set; }
-        public string Payload { get; set; }
+        //public string Payload { get; set; }
 
     }
 }

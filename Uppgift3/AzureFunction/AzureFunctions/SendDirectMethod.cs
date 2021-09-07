@@ -24,15 +24,17 @@ namespace AzureFunctions
             dynamic data = JsonConvert.DeserializeObject<DirectMethodModel>(await new StreamReader(req.Body).ReadToEndAsync());
 
             var method = new CloudToDeviceMethod(data.MethodName);
-            if(!string.IsNullOrEmpty(data.Payload))
-                method.SetPayloadJson(data.Payload);
+            //if(!string.IsNullOrEmpty(data.Payload))
+            //    method.SetPayloadJson(data.Payload);
+            
 
             CloudToDeviceMethodResult result = await serviceClient.InvokeDeviceMethodAsync(data.DeviceId, method);
-
+            
             if (result.Status != 200)
                 return new BadRequestResult();
             else
-                return new OkObjectResult(result.GetPayloadAsJson());
+                return new OkResult(); 
+                //return new OkObjectResult(result.GetPayloadAsJson());
         }
     }
 }
