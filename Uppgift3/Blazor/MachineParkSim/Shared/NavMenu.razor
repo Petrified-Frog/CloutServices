@@ -5,8 +5,8 @@
     </button>
 </div>
 
-<AuthorizeView>
-    <Authorized>
+@*<AuthorizeView>
+    <Authorized>*@
         <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
             <ul class="nav flex-column">
                 <li class="nav-item px-3">
@@ -21,7 +21,7 @@
                 </li>
             </ul>
         </div>
-    </Authorized>
+    @*</Authorized>
     <NotAuthorized>
         <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
             <ul class="nav flex-column">
@@ -33,7 +33,7 @@
             </ul>
         </div>
     </NotAuthorized>
-</AuthorizeView>
+</AuthorizeView>*@
 
 @code {
     private bool collapseNavMenu = true;

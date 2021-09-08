@@ -1,8 +1,8 @@
 ﻿@page "/devices"
     <h3>Devices</h3>
 
-    <AuthorizeView>
-        <Authorized>
+    @*<AuthorizeView>
+        <Authorized>*@
             @if (devices == null)
             {
                 <p><em>Loading...</em></p>
@@ -11,7 +11,6 @@
             {
                 @foreach (var device in devices)
                 {
-
                     <div class="card mb-3">
                         <div class="card-header font-weight-bold d-flex @BgColour(device)">
                             @device.DeviceId
@@ -40,12 +39,12 @@
                     </div>
                 }
             }
-        </Authorized>
+        @*</Authorized>
         <NotAuthorized>
             <p>You have to log in to see anything important.</p>
             <a href="authentication/login">Log in</a>
         </NotAuthorized>
-    </AuthorizeView>
+    </AuthorizeView>*@
 
     @code {
 
@@ -53,19 +52,19 @@
 
         protected async Task GetDevicesAsync()
         {
-            devices = await Http.GetFromJsonAsync<IotDeviceModel[]>("https://net21upg3-funcapp.azurewebsites.net/api/GetTwinDevices?");
+            devices = await Http.GetFromJsonAsync<IotDeviceModel[]>("https://net21upg3-funcapp.azurewebsites.net/api/GetTwinDevices");
         }
 
         protected override void OnInitialized()
         {
-            var timer = new Timer(new TimerCallback(_ => InvokeAsync(() => StateHasChanged())), null, 1000, 1000);
+            var timer = new Timer(new TimerCallback(_ => InvokeAsync(() => StateHasChanged())), null, 10000, 10000);
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
+            Console.WriteLine("Check");
             await GetDevicesAsync();
         }
-
 
         private string BgColour(IotDeviceModel device)
         {
@@ -75,30 +74,29 @@
                 return "bg-danger";
         }
 
-
         private string ButtonText(IotDeviceModel device)
         {
             if (device.Sending)
                 return "Stop";
             else
                 return "Start";
-
         }
 
         private async Task ToggleSendStateAsync(MouseEventArgs e, IotDeviceModel device)
         {
-            var bodyRequest = new DirectMethodRequestModel{ DeviceId = device.DeviceId, MethodName = "start"};
+            //var bodyRequest = new DirectMethodRequestModel{ DeviceId = device.DeviceId};
 
+            var methodName = "";
             if (device.Sending)
-                bodyRequest.MethodName = "stop";
+                methodName = "stop";
             else
-                bodyRequest.MethodName = "start";
-            Console.WriteLine("Posting: "+bodyRequest.MethodName);
+                methodName = "start";
+            //Console.WriteLine("Posting: "+bodyRequest.MethodName);
 
-            var response = await Http.PostAsJsonAsync("https://net21upg3-funcapp.azurewebsites.net/api/directmethod?", bodyRequest);
-
+            var response = await Http.PostAsJsonAsync("https://net21upg3-funcapp.azurewebsites.net/api/directmethod", new { DeviceId = device.DeviceId, MethodName = methodName });
+            if (response.IsSuccessStatusCode)
+                Console.WriteLine("200 OK");
             //var response = await Http.PostAsJsonAsync("https://net21upg3-funcapp.azurewebsites.net/api/directmethod?", new {deviceId = device.DeviceId, methodName = "stop"});
 
         }
-
     }

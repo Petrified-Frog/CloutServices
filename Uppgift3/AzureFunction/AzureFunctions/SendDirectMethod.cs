@@ -21,7 +21,7 @@ namespace AzureFunctions
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "directmethod")] HttpRequest req,
             ILogger log)
         {            
-            dynamic data = JsonConvert.DeserializeObject<DirectMethodModel>(await new StreamReader(req.Body).ReadToEndAsync());
+            var data = JsonConvert.DeserializeObject<DirectMethodModel>(await new StreamReader(req.Body).ReadToEndAsync());
 
             var method = new CloudToDeviceMethod(data.MethodName);
             //if(!string.IsNullOrEmpty(data.Payload))
